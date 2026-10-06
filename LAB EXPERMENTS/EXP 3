@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main()
+{
+    char text[100], key[100];
+    int i, j = 0;
+    int textValue, keyValue;
+
+    printf("Enter the text: ");
+    scanf("%s", text);
+
+    printf("Enter the key: ");
+    scanf("%s", key);
+
+    for (i = 0; text[i] != '\0'; i++)
+    {
+        textValue = toupper(text[i]) - 'A';
+        keyValue = toupper(key[j]) - 'A';
+
+        text[i] = (textValue + keyValue) % 26 + 'A';
+
+        j++;
+
+        if (key[j] == '\0')
+        {
+            j = 0;
+        }
+    }
+
+    printf("Encrypted text: %s", text);
+
+    return 0;
+}
