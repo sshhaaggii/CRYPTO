@@ -1,57 +1,67 @@
 
-def generate_key(keyword):
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    keyword = keyword.upper()
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-    # Remove duplicate letters from keyword
-    unique = ""
-    for ch in keyword:
-        if ch.isalpha() and ch not in unique:
-            unique += ch
+int main() {
+    char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char key[27], text[100], cipher[100], plain[100];
+    int i, j;
 
-    # Add remaining alphabet letters
-    for ch in alphabet:
-        if ch not in unique:
-            unique += ch
+    printf("Enter 26-letter substitution key: ");
+    scanf("%26s", key);
 
-    return unique
+    if (strlen(key) != 26) {
+        printf("Invalid key!\n");
+        return 1;
+    }
 
+    for (i = 0; i < 26; i++) {
+        key[i] = toupper((unsigned char)key[i]);
+        if (key[i] < 'A' || key[i] > 'Z') {
+            printf("Invalid key!\n");
+            return 1;
+        }
+        for (j = 0; j < i; j++) {
+            if (key[i] == key[j]) {
+                printf("Key must not contain duplicates!\n");
+                return 1;
+            }
+        }
+    }
 
-def encrypt(message, key):
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    result = ""
+    printf("Enter plaintext: ");
+    scanf(" %99[^\n]", text);
 
-    for ch in message.upper():
-        if ch in alphabet:
-            result += key[alphabet.index(ch)]
-        else:
-            result += ch
+    for (i = 0; text[i] != '\0'; i++) {
+        char ch = toupper((unsigned char)text[i]);
 
-    return result
+        if (ch >= 'A' && ch <= 'Z')
+            cipher[i] = key[ch - 'A'];
+        else
+            cipher[i] = text[i];
+    }
+    cipher[i] = '\0';
 
+    printf("Encrypted text: %s\n", cipher);
 
-def decrypt(ciphertext, key):
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    result = ""
+    for (i = 0; cipher[i] != '\0'; i++) {
+        char ch = toupper((unsigned char)cipher[i]);
 
-    for ch in ciphertext.upper():
-        if ch in key:
-            result += alphabet[key.index(ch)]
-        else:
-            result += ch
+        if (ch >= 'A' && ch <= 'Z') {
+            for (j = 0; j < 26; j++) {
+                if (key[j] == ch) {
+                    plain[i] = alphabet[j];
+                    break;
+                }
+            }
+        } else {
+            plain[i] = cipher[i];
+        }
+    }
+    plain[i] = '\0';
 
-    return result
+    printf("Decrypted text: %s\n", plain);
 
-
-# Main program
-keyword = input("Enter keyword: ")
-message = input("Enter plaintext: ")
-
-key = generate_key(keyword)
-
-ciphertext = encrypt(message, key)
-plaintext = decrypt(ciphertext, key)
-
-print("Substitution Key:", key)
-print("Encrypted Text:", ciphertext)
-print("Decrypted Text:", plaintext)
+    return 0;
+}
