@@ -1,0 +1,57 @@
+
+def generate_key(keyword):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    keyword = keyword.upper()
+
+    # Remove duplicate letters from keyword
+    unique = ""
+    for ch in keyword:
+        if ch.isalpha() and ch not in unique:
+            unique += ch
+
+    # Add remaining alphabet letters
+    for ch in alphabet:
+        if ch not in unique:
+            unique += ch
+
+    return unique
+
+
+def encrypt(message, key):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    result = ""
+
+    for ch in message.upper():
+        if ch in alphabet:
+            result += key[alphabet.index(ch)]
+        else:
+            result += ch
+
+    return result
+
+
+def decrypt(ciphertext, key):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    result = ""
+
+    for ch in ciphertext.upper():
+        if ch in key:
+            result += alphabet[key.index(ch)]
+        else:
+            result += ch
+
+    return result
+
+
+# Main program
+keyword = input("Enter keyword: ")
+message = input("Enter plaintext: ")
+
+key = generate_key(keyword)
+
+ciphertext = encrypt(message, key)
+plaintext = decrypt(ciphertext, key)
+
+print("Substitution Key:", key)
+print("Encrypted Text:", ciphertext)
+print("Decrypted Text:", plaintext)
