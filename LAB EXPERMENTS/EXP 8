@@ -1,67 +1,14 @@
-
 #include <stdio.h>
-#include <string.h>
 #include <ctype.h>
-
-int main() {
-    char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char key[27], text[100], cipher[100], plain[100];
-    int i, j;
-
-    printf("Enter 26-letter substitution key: ");
-    scanf("%26s", key);
-
-    if (strlen(key) != 26) {
-        printf("Invalid key!\n");
-        return 1;
-    }
-
-    for (i = 0; i < 26; i++) {
-        key[i] = toupper((unsigned char)key[i]);
-        if (key[i] < 'A' || key[i] > 'Z') {
-            printf("Invalid key!\n");
-            return 1;
-        }
-        for (j = 0; j < i; j++) {
-            if (key[i] == key[j]) {
-                printf("Key must not contain duplicates!\n");
-                return 1;
-            }
-        }
-    }
-
-    printf("Enter plaintext: ");
-    scanf(" %99[^\n]", text);
-
-    for (i = 0; text[i] != '\0'; i++) {
-        char ch = toupper((unsigned char)text[i]);
-
-        if (ch >= 'A' && ch <= 'Z')
-            cipher[i] = key[ch - 'A'];
-        else
-            cipher[i] = text[i];
-    }
-    cipher[i] = '\0';
-
-    printf("Encrypted text: %s\n", cipher);
-
-    for (i = 0; cipher[i] != '\0'; i++) {
-        char ch = toupper((unsigned char)cipher[i]);
-
-        if (ch >= 'A' && ch <= 'Z') {
-            for (j = 0; j < 26; j++) {
-                if (key[j] == ch) {
-                    plain[i] = alphabet[j];
-                    break;
-                }
-            }
-        } else {
-            plain[i] = cipher[i];
-        }
-    }
-    plain[i] = '\0';
-
-    printf("Decrypted text: %s\n", plain);
-
-    return 0;
+int main(void){
+ char s[500],key[]="CIPHER"; char map[26]; int used[26]={0},n=0;
+ for(int i=0;key[i];i++){int x=key[i]-'A';if(!used[x]){map[n++]=key[i];used[x]=1;}}
+ for(char c='A';c<='Z';c++)if(!used[c-'A'])map[n++]=c;
+ printf("Plaintext: ");fgets(s,sizeof s,stdin);
+ printf("Cipher alphabet: ");for(int i=0;i<26;i++)putchar(map[i]);puts("");
+ for(int i=0;s[i];i++)if(isalpha((unsigned char)s[i])){
+   int x=toupper((unsigned char)s[i])-'A';char c=map[x];
+   s[i]=islower((unsigned char)s[i])?(char)tolower(c):c;
+ }
+ printf("Ciphertext: %s",s);return 0;
 }
