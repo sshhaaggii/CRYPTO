@@ -1,29 +1,15 @@
-
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
-
-int main() {
-    char text[100], key[100];
-    int i, j = 0;
-
-    printf("Enter plaintext: ");
-    scanf("%s", text);
-
-    printf("Enter key: ");
-    scanf("%s", key);
-
-    for (i = 0; text[i] != '\0'; i++) {
-        if (isalpha(text[i])) {
-            char base = isupper(text[i]) ? 'A' : 'a';
-            text[i] = (text[i] - base +
-                       tolower(key[j % strlen(key)]) - 'a') % 26 + base;
-            j++;
-        }
-    }
-
-    printf("Encrypted text: %s\n", text);
-
-    return 0;
+int main(void){
+ char s[2000]; int f[256]={0};
+ printf("Enter ciphertext: ");fgets(s,sizeof s,stdin);
+ for(int i=0;s[i];i++)if((unsigned char)s[i]>=32)f[(unsigned char)s[i]]++;
+ puts("Character frequencies:");
+ for(int pass=0;pass<256;pass++){
+   int best=-1;
+   for(int c=0;c<256;c++)if(f[c]>0&&(best<0||f[c]>f[best]))best=c;
+   if(best<0)break;
+   printf("'%c' : %d\n",best,f[best]);f[best]=0;
+ }
+ return 0;
 }
-
