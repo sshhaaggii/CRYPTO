@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int main(void){
+ char sq[25]="MFHIKUNOPQZVWXYELARGDSTBC"; /* I/J share one cell */
+ char txt[500],a[500];int m=0;
+ printf("Message: ");fgets(txt,sizeof txt,stdin);
+ for(int i=0;txt[i];i++){char c=toupper((unsigned char)txt[i]);if(c=='J')c='I';if(c>='A'&&c<='Z')a[m++]=c;}
+ printf("Ciphertext: ");
+ for(int i=0;i<m;){char x=a[i++],y;
+  if(i==m)y='X';else if(a[i]==x)y='X';else y=a[i++];
+  int r1=0,c1=0,r2=0,c2=0;
+  for(int j=0;j<25;j++){if(sq[j]==x){r1=j/5;c1=j%5;}if(sq[j]==y){r2=j/5;c2=j%5;}}
+  if(r1==r2){putchar(sq[r1*5+(c1+1)%5]);putchar(sq[r2*5+(c2+1)%5]);}
+  else if(c1==c2){putchar(sq[((r1+1)%5)*5+c1]);putchar(sq[((r2+1)%5)*5+c2]);}
+  else {putchar(sq[r1*5+c2]);putchar(sq[r2*5+c1]);}
+ }puts("");return 0;
+}
