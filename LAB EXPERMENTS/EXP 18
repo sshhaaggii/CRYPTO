@@ -1,0 +1,10 @@
+#include <stdio.h>
+int main(void){
+ puts("DES subkey generation outline:");
+ puts("1. PC-1: 64-bit key -> 56 bits (parity bits removed).");
+ puts("2. Split into C and D, each 28 bits.");
+ puts("3. Left-rotate C and D according to the DES shift schedule.");
+ puts("4. PC-2 selects 48 bits: 24 from C and 24 from D.");
+ puts("5. Repeat for 16 round subkeys.");
+ return 0;
+}
