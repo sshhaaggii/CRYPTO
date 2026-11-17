@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <ctype.h>
+int main(void){
+ char s[500],p[500];int n=0;
+ printf("Plaintext: ");fgets(s,sizeof s,stdin);
+ for(int i=0;s[i];i++)if(isalpha((unsigned char)s[i]))p[n++]=(char)(toupper((unsigned char)s[i])-'A');
+ if(n%2)p[n++]=('X'-'A');
+ printf("Ciphertext: ");
+ for(int i=0;i<n;i+=2){int x=p[i],y=p[i+1];
+   putchar('A'+(9*x+4*y)%26);putchar('A'+(5*x+7*y)%26);}
+ puts("");return 0;
+}
