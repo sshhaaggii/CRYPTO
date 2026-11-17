@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <ctype.h>
+int main(void){
+ char p[300];int k[300],n=0;
+ printf("Plaintext (letters/spaces): ");fgets(p,sizeof p,stdin);
+ printf("Enter key values for each letter, then -1 to stop: ");
+ while(scanf("%d",&k[n])==1&&k[n]>=0&&n<299)n++;
+ int j=0;printf("Ciphertext: ");
+ for(int i=0;p[i];i++)if(isalpha((unsigned char)p[i])){
+   if(j>=n){puts("\\nNot enough key values.");return 1;}
+   putchar('A'+(toupper((unsigned char)p[i])-'A'+k[j++])%26);
+ }else if(p[i]==' ')putchar(' ');
+ puts("");return 0;
+}
