@@ -1,0 +1,8 @@
+#include <stdio.h>
+int main(void){
+ puts("ECB ciphertext error in C1: P1 is corrupted; P2 and later blocks are unaffected.");
+ puts("CBC ciphertext error in C1: P1 is corrupted unpredictably; the corresponding bit in P2 flips.");
+ puts("CBC blocks P3 onward are unaffected by a single-bit error in C1.");
+ puts("CBC plaintext error in P1: C1 and every subsequent ciphertext block change.");
+ return 0;
+}
