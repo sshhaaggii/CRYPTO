@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+int main(void){
+ char s[2000],rank[]="ETAOINSHRDLCUMWFGYPBVKJXQZ";
+ int f[26]={0},order[26],map[26];
+ printf("Ciphertext: ");fgets(s,sizeof s,stdin);
+ for(int i=0;s[i];i++)if(isalpha((unsigned char)s[i]))f[toupper((unsigned char)s[i])-'A']++;
+ for(int i=0;i<26;i++)order[i]=i;
+ for(int i=0;i<26;i++)for(int j=i+1;j<26;j++)if(f[order[j]]>f[order[i]]){int t=order[i];order[i]=order[j];order[j]=t;}
+ for(int i=0;i<26;i++)map[order[i]]=rank[i];
+ printf("Approximate candidate: ");
+ for(int i=0;s[i];i++)if(isalpha((unsigned char)s[i])){
+  char c=map[toupper((unsigned char)s[i])-'A'];putchar(islower((unsigned char)s[i])?tolower(c):c);
+ }else putchar(s[i]);
+ puts("\\nNote: heuristic only; output may not be meaningful English.");return 0;
+}
