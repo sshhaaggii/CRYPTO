@@ -1,0 +1,8 @@
+#include <stdio.h>
+int main(void){
+ int i;
+ puts("DES decryption round-key order:");
+ for(i=16;i>=1;i--)printf("K%d%s",i,i==1?"\\n":" -> ");
+ puts("Use the standard DES key schedule, then reverse the subkey order for decryption.");
+ return 0;
+}
