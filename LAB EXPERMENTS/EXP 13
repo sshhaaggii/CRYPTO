@@ -1,0 +1,15 @@
+#include <stdio.h>
+int mod(int x){x%=26;return x<0?x+26:x;}
+int inv(int x){for(int i=1;i<26;i++)if(mod(x*i)==1)return i;return -1;}
+int main(void){
+ int p00,p10,p01,p11,c00,c10,c01,c11;
+ printf("Enter P columns (p00 p10 p01 p11): ");scanf("%d%d%d%d",&p00,&p10,&p01,&p11);
+ printf("Enter C columns (c00 c10 c01 c11): ");scanf("%d%d%d%d",&c00,&c10,&c01,&c11);
+ int det=mod(p00*p11-p01*p10),di=inv(det);
+ if(di<0){puts("Plaintext matrix is not invertible modulo 26.");return 1;}
+ int i00=mod(p11*di),i01=mod(-p01*di),i10=mod(-p10*di),i11=mod(p00*di);
+ printf("Recovered K = [[%d,%d],[%d,%d]]\\n",
+   mod(c00*i00+c01*i10),mod(c00*i01+c01*i11),
+   mod(c10*i00+c11*i10),mod(c10*i01+c11*i11));
+ return 0;
+}
