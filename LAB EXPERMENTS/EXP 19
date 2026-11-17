@@ -1,0 +1,11 @@
+#include <stdio.h>
+int main(void){
+ unsigned int p[4]={0x1234,0x5678,0x9ABC,0xDEF0},c[4],iv=0xAAAA;
+ unsigned int k=0x1357; /* Toy XOR block operation for illustrating CBC only */
+ for(int i=0;i<4;i++){c[i]=p[i]^iv^k;iv=c[i];}
+ puts("Toy CBC demonstration (NOT real 3DES):");
+ for(int i=0;i<4;i++)printf("C%d = %04X\\n",i+1,c[i]);
+ puts("Security choice from the listed options: 3DES over single DES; performance: DES is faster.");
+ puts("For real systems, use a vetted AES-GCM implementation.");
+ return 0;
+}
