@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include <ctype.h>
+int main(void){
+ char s[1000];printf("Ciphertext: ");fgets(s,sizeof s,stdin);
+ for(int k=0;k<26;k++){printf("Shift %2d: ",k);
+  for(int i=0;s[i];i++)if(s[i]>='A'&&s[i]<='Z')putchar('A'+(s[i]-'A'-k+26)%26);
+   else if(s[i]>='a'&&s[i]<='z')putchar('a'+(s[i]-'a'-k+26)%26);else putchar(s[i]);
+  puts("");
+ }return 0;
+}
