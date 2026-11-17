@@ -1,0 +1,7 @@
+#include <stdio.h>
+int main(void){
+ printf("Raw number of squares = 25! (approximately 2^83.7).\\n");
+ printf("If row order and column order are considered equivalent, divide by (5!)^2.\\n");
+ printf("Effective count under this equivalence = 25! / (5! * 5!).\\n");
+ return 0;
+}
