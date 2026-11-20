@@ -1,0 +1,2 @@
+#include <stdio.h>
+int main(){char s[1000];int b,n=0;printf("Binary data: ");scanf("%999s",s);printf("Block size: ");scanf("%d",&b);if(b<=0)return 1;while(s[n]){if(s[n]!='0'&&s[n]!='1')return 1;n++;}s[n++]='1';while(n%b)s[n++]='0';s[n]=0;printf("Padded: %s\nLength: %d",s,n);return 0;}
